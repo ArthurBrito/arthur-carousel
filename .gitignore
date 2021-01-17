@@ -1,0 +1,14 @@
+db_data/
+wp-admin/
+wp-content/
+wp-includes/
+wp-*
+xmlrpc.php
+index.php
+footer.php
+readme.html
+license.txt
+*themes/
+.htaccess
+akismet/
+hello.php
