@@ -16,14 +16,16 @@
 
     // Styles
     $controls = get_option("arthur_carousel_controls", "false");
+    $fade = get_option("arthur_carousel_fade", "false");
 
+    // Component
     $carouselId = "carouselExampleSlidesOnly";
     if($controls == "true") {
       $carouselId = "carouselExampleControls";
     }
     
     $carousel = '';
-    $carousel .= '<div id="'.$carouselId.'" class="carousel slide" data-bs-ride="carousel">';
+    $carousel .= '<div id="'.$carouselId.'" class="carousel slide'.($fade == "true" ? ' carousel-fade' : '').'" data-bs-ride="carousel">';
     $carousel .=  '<div class="carousel-inner">';
     $carousel .=    '<div class="carousel-item active">';
     $carousel .=      '<img src="'.$first_img.'"class="d-block w-100" alt="'.$first_img_alt.'">';
@@ -91,6 +93,9 @@
    if(array_key_exists("submit_style", $_POST)) {
     update_option("arthur_carousel_controls", $_POST["controls"]);
 
+    update_option("arthur_carousel_fade", $_POST["controls"]);
+
+
     ?>
     <div id="style_confirmation" class="updated settings-error notice is-dismissible"> Styles saved! </div>
   <?php
@@ -108,6 +113,8 @@
 
   // Styles
   $controls = get_option("arthur_carousel_controls", "false");
+  $fade = get_option("arthur_carousel_fade", "false");
+
 
   ?>
     <div class="wrap">
@@ -133,6 +140,7 @@
       <input type="text" name="third_img_alt" value=<?php print $third_img_alt; ?>>
       <br>
       <p>* Mandatory fields </p>
+      <p>* Write none if you do not wish to display the field </p>
       <br><br>
       <input type="submit" name="submit_config" class="button button-primary" value="Submit configuration">
 
@@ -141,6 +149,10 @@
         <label for="controls"> With controls?  </label>
         <input name="controls" value="true" type="checkbox" <?php if($controls == "true") { echo 'checked';}?> >
         <br><br>
+        <label for="fade"> With fade </label>
+        <input name="fade" value="true" type="checkbox" <?php if($fade == "true") { echo 'checked';}?> >
+        <br><br>
+
         <input type="submit" name="submit_style" class="button button-primary" value="Submit styles">
 
       </form>
@@ -163,14 +175,5 @@
  }
 
  add_action("wp_head", "arthur_carousel_display_carousel_scripts");
-
-//  function load_resources() {
-//    wp_register_style( 'carousel.css', plugin_dir_url( __FILE__ ) . '_inc/carousel.css', array(), "1.0.0" );
-//    wp_enqueue_style( 'carousel.css');
-//    wp_register_script( 'carousel.js', plugin_dir_url( __FILE__ ) . '_inc/carousel.js', array(), "1.0.0" );
-//    wp_enqueue_script( 'carousel.js');
-//  }
-
-//  add_action( 'admin_enqueue_scripts', array( '', 'load_resources' ) );
 
 ?> 
