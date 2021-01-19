@@ -13,26 +13,45 @@
 
     $third_img = get_option("arthur_carousel_third_img", "none");
     $third_img_alt = get_option("arthur_carousel_third_img_alt", "none");
+
+    // Styles
+    $controls = get_option("arthur_carousel_controls", "false");
+
+    $carouselId = "carouselExampleSlidesOnly";
+    if($controls == "true") {
+      $carouselId = "carouselExampleControls";
+    }
     
     $carousel = '';
-    $carousel .= '<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">';
-    $carousel .= '<div class="carousel-inner">';
-    $carousel .= '<div class="carousel-item active">';
-    $carousel .= '<img src="'.$first_img.'"class="d-block w-100" alt="'.$first_img_alt.'">';
-    $carousel .= '</div>';
-    $carousel .= '<div class="carousel-item">';
-    $carousel .= '<img src="'.$second_img.'"class="d-block w-100" alt="'.$second_img_alt.'">';
-    $carousel .= '</div>';
+    $carousel .= '<div id="'.$carouselId.'" class="carousel slide" data-bs-ride="carousel">';
+    $carousel .=  '<div class="carousel-inner">';
+    $carousel .=    '<div class="carousel-item active">';
+    $carousel .=      '<img src="'.$first_img.'"class="d-block w-100" alt="'.$first_img_alt.'">';
+    $carousel .=    '</div>';
+    $carousel .=  '<div class="carousel-item">';
+    $carousel .=      '<img src="'.$second_img.'"class="d-block w-100" alt="'.$second_img_alt.'">';
+    $carousel .=    '</div>';
 
     // Dynamic display the third item
     if ($third_img !== 'none' && $third_img_alt !== 'none') {
-      $carousel .= '<div class="carousel-item">';
-      $carousel .= '<img src="'.$third_img.'"class="d-block w-100" alt="'.$third_img_alt.'">';
-      $carousel .= '</div>';
+      $carousel .=   '<div class="carousel-item">';
+      $carousel .=    '<img src="'.$third_img.'"class="d-block w-100" alt="'.$third_img_alt.'">';
+      $carousel .=   '</div>';
     }
+    
+    $carousel .= '</div>';
+    // $carousel .= '</div>';
 
-    $carousel .= '</div>';
-    $carousel .= '</div>';
+    if($controls == "true") {
+      $carousel .= '<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">';
+      $carousel .= '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+      $carousel .= '<span class="visually-hidden">Previous</span>';
+      $carousel .= '</a>';
+      $carousel .= '<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">';
+      $carousel .= '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+      $carousel .= '<span class="visually-hidden">Next</span>';
+      $carousel .= '</a>';
+    }
     $carousel .= '</div>';
 
     return $carousel;
@@ -69,14 +88,26 @@
       <?php
    }
 
-   $first_img = get_option("arthur_carousel_first_img", "none");
-   $first_img_alt = get_option("arthur_carousel_first_img_alt", "none");
+   if(array_key_exists("submit_style", $_POST)) {
+    update_option("arthur_carousel_controls", $_POST["controls"]);
 
-   $second_img = get_option("arthur_carousel_second_img", "none");
-   $second_img_alt = get_option("arthur_carousel_second_img_alt", "none");
+    ?>
+    <div id="style_confirmation" class="updated settings-error notice is-dismissible"> Styles saved! </div>
+  <?php
+   }
 
-   $third_img = get_option("arthur_carousel_third_img", "none");
-   $third_img_alt = get_option("arthur_carousel_third_img_alt", "none");
+  // Basic Configuration
+  $first_img = get_option("arthur_carousel_first_img", "none");
+  $first_img_alt = get_option("arthur_carousel_first_img_alt", "none");
+
+  $second_img = get_option("arthur_carousel_second_img", "none");
+  $second_img_alt = get_option("arthur_carousel_second_img_alt", "none");
+
+  $third_img = get_option("arthur_carousel_third_img", "none");
+  $third_img_alt = get_option("arthur_carousel_third_img_alt", "none");
+
+  // Styles
+  $controls = get_option("arthur_carousel_controls", "false");
 
   ?>
     <div class="wrap">
@@ -104,6 +135,16 @@
       <p>* Mandatory fields </p>
       <br><br>
       <input type="submit" name="submit_config" class="button button-primary" value="Submit configuration">
+
+      <form method="post" action="">
+        <h2>Styles </h2>
+        <label for="controls"> With controls?  </label>
+        <input name="controls" value="true" type="checkbox" <?php if($controls == "true") { echo 'checked';}?> >
+        <br><br>
+        <input type="submit" name="submit_style" class="button button-primary" value="Submit styles">
+
+      </form>
+
     </div>
    <?php
  }
