@@ -24,3 +24,35 @@ $ docker-compose down --volumes
 This will run MySQL, Wordpress and PHPmyAdmin which is what is necessary to start the development
 
 Now open the browser and open `locahost:8000` to see the wordpress running
+
+## Deploy
+
+Go to the wordpress admin
+
+Click on Plugins tab
+
+Click on Upload plugin
+
+Zip the arthur-carousel file
+
+Make the Upload
+
+Activate plugin
+
+## How to use it
+
+Go to the Site Scripts tab
+
+Give the link and alt text for at least two images
+
+Change the style configuration as you want
+
+And finally
+
+Go to one of your pages or posts and write on the text
+
+```
+[arthur_carousel]
+```
+
+Done!
